@@ -13,9 +13,9 @@ import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.processor.PageProcessor;
 
-public class EnliplePageProcessor implements PageProcessor {
+public class EnlipleMobilePageProcessor implements PageProcessor {
 
-    private Site site = Site.me().setRetryTimes(3).setSleepTime(1000).setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36");
+    private Site site = Site.me().setRetryTimes(3).setSleepTime(1000).setUserAgent("Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1");
 
     public static final String TEST = "http://www.momnuri.com/?ref=mobion";
 
@@ -150,7 +150,7 @@ public class EnliplePageProcessor implements PageProcessor {
 
     public static void main(String[] args) {
 
-        Spider.create(new EnliplePageProcessor()).addUrl(TEST).thread(10).run();
+        Spider.create(new EnlipleMobilePageProcessor()).addUrl(TEST).thread(10).run();
 
     }
 }
