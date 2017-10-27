@@ -19,7 +19,12 @@
 			<artifactId>webmagic-extension</artifactId>
 			<version>0.7.3</version>
 		</dependency>
-		
+		<!-- lombok 추가 -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.18</version>
+		</dependency>
 		<!-- test -->
 		<dependency>
 			<groupId>junit</groupId>
