@@ -18,14 +18,13 @@ public class EnliplePageProcessor implements PageProcessor {
 
     public static final String TEST = "http://www.momnuri.com/?ref=mobion";
 
-
     @Override
     public void process(Page page) {
 
         Map<String, Object> map = new HashMap<String, Object>();
 
         String url = page.getUrl().get();
-
+        page.putField("url", url);
         if (TEST.equals(url)) {
             page.addTargetRequests(page.getHtml().links().all());
         }

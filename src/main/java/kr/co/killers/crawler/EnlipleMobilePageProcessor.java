@@ -24,7 +24,7 @@ public class EnlipleMobilePageProcessor implements PageProcessor {
         Map<String, Object> map = new HashMap<String, Object>();
 
         String url = page.getUrl().get();
-
+        page.putField("url", url);
         if (TEST.equals(url)) {
             page.addTargetRequests(page.getHtml().links().all());
         }
