@@ -40,7 +40,7 @@ public class EnliplePageProcessor implements PageProcessor {
 
         if (root.body().hasAttr("onload")) {
             map.put("type", "1");
-            map.put("cnt", 1);
+            map.put("scriptOnloadCnt", 1);
         }
 
         if (!TEST.equals(page.getResultItems().get("url"))) {

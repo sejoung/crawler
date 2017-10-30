@@ -29,8 +29,23 @@ public class CrawlerUtil {
 
             }
 
+        }
+        if (!scriptData.isEmpty()) {
             data.put("scriptData", scriptData);
         }
+
+        int enlipleScriptCnt = 0;
+        if (scriptData.get("동기") != null) {
+            enlipleScriptCnt += (int) scriptData.get("동기");
+        }
+        if (scriptData.get("비동기") != null) {
+            enlipleScriptCnt += (int) scriptData.get("비동기");
+        }
+        if (enlipleScriptCnt > 0) {
+            data.put("enlipleScriptCnt", enlipleScriptCnt);
+
+        }
+
         return data;
     }
 
@@ -75,38 +90,37 @@ public class CrawlerUtil {
             // "");
             if (data.indexOf("window.attachEvent(\"onload\"") > 0 || data.indexOf("window.onload") > 0 || data.indexOf("window.addEventListener(\"onload\"") > 0 || data.indexOf("window.attachEvent('onload'") > 0 || data.indexOf("window.addEventListener('onload'") > 0) {
 
-                if (map.get("cnt") != null && (int) map.get("cnt") > 0) {
+                if (map.get("scriptOnloadCnt") != null && (int) map.get("scriptOnloadCnt") > 0) {
                     map.put("type", map.get("type") + ", 2");
                     map.put("desc", "여러개");
                     break;
                 } else {
                     map.put("type", "2");
-                    map.put("cnt", 1);
+                    map.put("scriptOnloadCnt", 1);
                 }
 
             } else if (data.indexOf("$(window).load") > 0 || data.indexOf("$(window).on") > 0) {
 
-                if (map.get("cnt") != null && (int) map.get("cnt") > 0) {
+                if (map.get("scriptOnloadCnt") != null && (int) map.get("scriptOnloadCnt") > 0) {
                     map.put("type", map.get("type") + ", 3");
                     map.put("desc", "여러개");
                     break;
                 } else {
                     map.put("type", "3");
-                    map.put("cnt", 1);
+                    map.put("scriptOnloadCnt", 1);
                 }
             } else if (data.indexOf("require load") > 0) {
 
-                if (map.get("cnt") != null && (int) map.get("cnt") > 0) {
+                if (map.get("scriptOnloadCnt") != null && (int) map.get("scriptOnloadCnt") > 0) {
                     map.put("type", map.get("type") + ", 4");
                     map.put("desc", "여러개");
                     break;
                 } else {
                     map.put("type", "4");
-                    map.put("cnt", 1);
+                    map.put("scriptOnloadCnt", 1);
                 }
-            } else {
+            } else if (map.get("type") == null || "".equals(map.get("type"))) {
                 map.put("type", "없다");
-                map.put("cnt", 1);
             }
 
             if ("no".equals(jsversion)) {
