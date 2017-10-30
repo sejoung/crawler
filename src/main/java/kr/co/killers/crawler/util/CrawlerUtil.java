@@ -13,78 +13,56 @@ public class CrawlerUtil {
         Elements elements = document.select("script[src]");
 
         Map<String, Object> data = new HashMap<String, Object>();
+        Map<String, Object> scriptData = new HashMap<String, Object>();
+
         data.put("jsversion", "no");
+
         for (Element element : elements) {
             if (element.attr("src").contains("enliple_min2")) {
                 data.put("jsversion", "3.1");
 
-                if (element.hasAttr("async")) {
-                    if (element.attr("async").contains("true") || element.attr("async").contains("")) {
-                        data.put("syncText", "비동기");
+                getEnlipleAsyncCheck(element, scriptData);
 
-                        if (data.get("asyncCnt") != null) {
-                            data.put("asyncCnt", (int) data.get("asyncCnt") + 1);
-                        } else {
-                            data.put("asyncCnt", 1);
-                        }
-
-                    } else if (element.attr("async").contains("false")) {
-                        data.put("syncText", "동기");
-
-                        if (data.get("syncCnt") != null) {
-                            data.put("syncCnt", (int) data.get("syncCnt") + 1);
-                        } else {
-                            data.put("syncCnt", 1);
-                        }
-
-                    }
-
-                } else {
-                    data.put("syncText", "동기");
-
-                    if (data.get("syncCnt") != null) {
-                        data.put("syncCnt", (int) data.get("syncCnt") + 1);
-                    } else {
-                        data.put("syncCnt", 1);
-                    }
-
-                }
             } else if (element.attr("src").contains("enliple_min")) {
                 data.put("jsversion", "3.0");
+                getEnlipleAsyncCheck(element, scriptData);
 
-                if (element.hasAttr("async")) {
-                    if (element.attr("async").contains("true") || element.attr("async").contains("") || element.attr("async").contains("async")) {
-                        data.put("syncText", "비동기");
-                        if (data.get("asyncCnt") != null) {
-                            data.put("asyncCnt", (int) data.get("asyncCnt") + 1);
-                        } else {
-                            data.put("asyncCnt", 1);
-                        }
-                    } else if (element.attr("async").contains("false")) {
-                        data.put("syncText", "동기");
+            }
 
-                        if (data.get("syncCnt") != null) {
-                            data.put("syncCnt", (int) data.get("syncCnt") + 1);
-                        } else {
-                            data.put("syncCnt", 1);
-                        }
+            data.put("scriptData", scriptData);
+        }
+        return data;
+    }
 
-                    }
+    public static void getEnlipleAsyncCheck(Element element, Map<String, Object> scriptData) {
 
+        if (element.hasAttr("async")) {
+            if (element.attr("async").contains("true") || element.attr("async").contains("") || element.attr("async").contains("async")) {
+
+                if (scriptData.get("비동기") != null) {
+                    scriptData.put("비동기", (int) scriptData.get("비동기") + 1);
                 } else {
-                    data.put("syncText", "동기");
-
-                    if (data.get("syncCnt") != null) {
-                        data.put("syncCnt", (int) data.get("syncCnt") + 1);
-                    } else {
-                        data.put("syncCnt", 1);
-                    }
-
+                    scriptData.put("비동기", 1);
                 }
+            } else if (element.attr("async").contains("false")) {
+
+                if (scriptData.get("동기") != null) {
+                    scriptData.put("동기", (int) scriptData.get("동기") + 1);
+                } else {
+                    scriptData.put("동기", 1);
+                }
+
+            }
+
+        } else {
+
+            if (scriptData.get("동기") != null) {
+                scriptData.put("동기", (int) scriptData.get("동기") + 1);
+            } else {
+                scriptData.put("동기", 1);
             }
 
         }
-        return data;
     }
 
     public static void getEnlipleScriptType(Map<String, Object> map, Elements els, String jsversion) {
