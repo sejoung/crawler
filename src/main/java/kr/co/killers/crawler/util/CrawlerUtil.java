@@ -9,10 +9,10 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class CrawlerUtil {
-    public static Map<String, String> getEnlipleMinVersion(Document document) {
+    public static Map<String, Object> getEnlipleMinVersion(Document document) {
         Elements elements = document.select("script[src]");
 
-        Map<String, String> data = new HashMap<String, String>();
+        Map<String, Object> data = new HashMap<String, Object>();
         data.put("jsversion", "no");
         for (Element element : elements) {
             if (element.attr("src").contains("enliple_min2")) {
@@ -21,12 +21,33 @@ public class CrawlerUtil {
                 if (element.hasAttr("async")) {
                     if (element.attr("async").contains("true") || element.attr("async").contains("")) {
                         data.put("syncText", "비동기");
+
+                        if (data.get("asyncCnt") != null) {
+                            data.put("asyncCnt", (int) data.get("asyncCnt") + 1);
+                        } else {
+                            data.put("asyncCnt", 1);
+                        }
+
                     } else if (element.attr("async").contains("false")) {
                         data.put("syncText", "동기");
+
+                        if (data.get("syncCnt") != null) {
+                            data.put("syncCnt", (int) data.get("syncCnt") + 1);
+                        } else {
+                            data.put("syncCnt", 1);
+                        }
+
                     }
 
                 } else {
                     data.put("syncText", "동기");
+
+                    if (data.get("syncCnt") != null) {
+                        data.put("syncCnt", (int) data.get("syncCnt") + 1);
+                    } else {
+                        data.put("syncCnt", 1);
+                    }
+
                 }
             } else if (element.attr("src").contains("enliple_min")) {
                 data.put("jsversion", "3.0");
@@ -34,12 +55,31 @@ public class CrawlerUtil {
                 if (element.hasAttr("async")) {
                     if (element.attr("async").contains("true") || element.attr("async").contains("") || element.attr("async").contains("async")) {
                         data.put("syncText", "비동기");
+                        if (data.get("asyncCnt") != null) {
+                            data.put("asyncCnt", (int) data.get("asyncCnt") + 1);
+                        } else {
+                            data.put("asyncCnt", 1);
+                        }
                     } else if (element.attr("async").contains("false")) {
                         data.put("syncText", "동기");
+
+                        if (data.get("syncCnt") != null) {
+                            data.put("syncCnt", (int) data.get("syncCnt") + 1);
+                        } else {
+                            data.put("syncCnt", 1);
+                        }
+
                     }
 
                 } else {
                     data.put("syncText", "동기");
+
+                    if (data.get("syncCnt") != null) {
+                        data.put("syncCnt", (int) data.get("syncCnt") + 1);
+                    } else {
+                        data.put("syncCnt", 1);
+                    }
+
                 }
             }
 
