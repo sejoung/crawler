@@ -20,15 +20,27 @@ public class CrawlerUtil {
         for (Element element : elements) {
             if (element.attr("src").indexOf("enliple") > 0) {
 
-                if(element.hasAttr("defer")) {
+                if (element.hasAttr("defer")) {
                     data.put("jsversion", "3.1");
-                }else {
+
+                    if (data.get("3.1") != null) {
+                        data.put("3.1", (int) data.get("3.1") + 1);
+                    } else {
+                        data.put("3.1", 1);
+                    }
+                } else {
                     data.put("jsversion", "3.0");
+
+                    if (data.get("3.0") != null) {
+                        data.put("3.0", (int) data.get("3.0") + 1);
+                    } else {
+                        data.put("3.0", 1);
+                    }
                 }
-                
+
                 getEnlipleAsyncCheck(element, scriptData);
 
-            } 
+            }
 
         }
         if (!scriptData.isEmpty()) {

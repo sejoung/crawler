@@ -16,7 +16,7 @@ public class EnliplePageProcessor implements PageProcessor {
 
     private Site site = Site.me().setRetryTimes(3).setSleepTime(1000).setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36");
 
-    public static final String TEST = "http://www.momnuri.com/?ref=mobion";
+    public static final String TEST = "http://www.cocovill.com";
 
     @Override
     public void process(Page page) {
