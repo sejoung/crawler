@@ -18,16 +18,17 @@ public class CrawlerUtil {
         data.put("jsversion", "no");
 
         for (Element element : elements) {
-            if (element.attr("src").contains("enliple_min2")) {
-                data.put("jsversion", "3.1");
+            if (element.attr("src").indexOf("enliple") > 0) {
 
+                if(element.hasAttr("defer")) {
+                    data.put("jsversion", "3.1");
+                }else {
+                    data.put("jsversion", "3.0");
+                }
+                
                 getEnlipleAsyncCheck(element, scriptData);
 
-            } else if (element.attr("src").contains("enliple_min")) {
-                data.put("jsversion", "3.0");
-                getEnlipleAsyncCheck(element, scriptData);
-
-            }
+            } 
 
         }
         if (!scriptData.isEmpty()) {
